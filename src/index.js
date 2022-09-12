@@ -7,11 +7,13 @@ const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users'
 const app = express()
 const server = http.createServer(app)
 const io = require('socket.io')(server)
+const cors = require('cors')
 
 const port = process.env.PORT || 8000
 const publicDirectoryPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicDirectoryPath))
+app.use(cors())
 
 io.on('connection', (socket) => {
     socket.on('join', (options, reset) => {
